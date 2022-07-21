@@ -43,7 +43,7 @@ create table AMBIENTE
 create table AREA
 (
    AREA_ID              int not null,
-   AREA_NOMBRE          varchar(30) not null,
+   AREA_NOMBRE          varchar(200) not null,
    primary key (AREA_ID)
 );
 
@@ -55,7 +55,7 @@ create table COMPETENCIA
    COMP_CODIGO          int not null,
    PROG_CODIGO          int not null,
    COMP_TIPO            varchar(20) not null,
-   COMP_NOMBRE          varchar(20) not null,
+   COMP_NOMBRE          varchar(200) not null,
    primary key (COMP_CODIGO)
 );
 
@@ -67,7 +67,7 @@ create table CORDINADOR
    US_ID                int not null,
    US_TIPO_ID           varchar(30) not null,
    US_NOMBRE            varchar(100) not null,
-   US_APELLIDO          varchar(30) not null,
+   US_APELLIDO          varchar(50) not null,
    US_ROL               varchar(15) not null,
    COR_FECHA_INICIO     date,
    primary key (US_ID)
@@ -81,7 +81,7 @@ create table DOCENTE
    US_ID                int not null,
    US_TIPO_ID           varchar(30) not null,
    US_NOMBRE            varchar(100) not null,
-   US_APELLIDO          varchar(30) not null,
+   US_APELLIDO          varchar(50) not null,
    US_ROL               varchar(15) not null,
    AREA_ID              int not null,
    PROG_CODIGO          int not null,

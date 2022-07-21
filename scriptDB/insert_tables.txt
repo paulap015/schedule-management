@@ -1,0 +1,48 @@
+--insert programa
+
+INSERT INTO `programa` (`PROG_CODIGO`, `PROG_NOMBRE`) VALUES ('1', 'Analisis De Glosa Y Cartera De Cuentas Medicas');
+INSERT INTO `programa` (`PROG_CODIGO`, `PROG_NOMBRE`) VALUES ('2', 'Análisis Y Desarrollo De Sistemas De Información');
+INSERT INTO `programa` (`PROG_CODIGO`, `PROG_NOMBRE`) VALUES ('3', 'Gestión Bancaria Y De Entidades Financieras');
+INSERT INTO `programa` (`PROG_CODIGO`, `PROG_NOMBRE`) VALUES ('4', 'Gestión Logística');
+INSERT INTO `programa` (`PROG_CODIGO`, `PROG_NOMBRE`) VALUES ('5', 'Implementación De Sistemas De Información Geográfica');
+INSERT INTO `programa` (`PROG_CODIGO`, `PROG_NOMBRE`) VALUES ('6', 'Mecánico De Maquinaria Industrial');
+INSERT INTO `programa` (`PROG_CODIGO`, `PROG_NOMBRE`) VALUES ('7', 'Financieras');
+
+--area
+INSERT INTO `area` (`AREA_ID`, `AREA_NOMBRE`) VALUES ('1', 'Desarrollo de software');
+INSERT INTO `area` (`AREA_ID`, `AREA_NOMBRE`) VALUES ('2', 'Gastronomía');
+INSERT INTO `area` (`AREA_ID`, `AREA_NOMBRE`) VALUES ('3', 'Dimensión ambiental');
+INSERT INTO `area` (`AREA_ID`, `AREA_NOMBRE`) VALUES ('4', 'Maquinaria industrial');
+
+--competencia
+INSERT INTO `competencia` (`COMP_CODIGO`, `PROG_CODIGO`, `COMP_TIPO`, `COMP_NOMBRE`) VALUES ('1', '7', 'especifica', 'Analizar los resultados contables y financieros segun los criterios establecidos');
+INSERT INTO `competencia` (`COMP_CODIGO`, `PROG_CODIGO`, `COMP_TIPO`, `COMP_NOMBRE`) VALUES ('2', '4', 'especifica', 'Operar herramientas ofimaticas y digitales de acuerdo con protocolosy manuales técnicos.');
+INSERT INTO `competencia` (`COMP_CODIGO`, `PROG_CODIGO`, `COMP_TIPO`, `COMP_NOMBRE`) VALUES ('3', '2', 'general', 'Orientar investigación formativa segun referentes tecnicos.');
+INSERT INTO `competencia` (`COMP_CODIGO`, `PROG_CODIGO`, `COMP_TIPO`, `COMP_NOMBRE`) VALUES ('4', '1', 'especifica', 'Administrar la cartera de credito de acuerdo con normas legales, institucionales');
+INSERT INTO `competencia` (`COMP_CODIGO`, `PROG_CODIGO`, `COMP_TIPO`, `COMP_NOMBRE`) VALUES ('5', '3', 'general', 'Controlar sistema de gestion de acuerdo con normativa de seguridad y salud en el trabjao');
+INSERT INTO `competencia` (`COMP_CODIGO`, `PROG_CODIGO`, `COMP_TIPO`, `COMP_NOMBRE`) VALUES ('6', '5', 'general', 'Promover acciones de prevención de acuerdo con normativas y protocolos de gestión de riesgo de desastres');
+INSERT INTO `competencia` (`COMP_CODIGO`, `PROG_CODIGO`, `COMP_TIPO`, `COMP_NOMBRE`) VALUES ('7', '6', 'especifica', 'Integrar sistema de automatización de acuerdo a procedimientos y requerimientos técnicos.');
+
+--periodo academico
+INSERT INTO `periodoacademico` (`PA_ID`, `PA_FECHA_INICIO`, `PA_FECHA_FIN`, `PA_NOMBRE`) VALUES ('1', '2022-01-25 00:00:00', '2022-04-10 00:00:00', 'primer trimestre 2022');
+INSERT INTO `periodoacademico` (`PA_ID`, `PA_FECHA_INICIO`, `PA_FECHA_FIN`, `PA_NOMBRE`) VALUES ('2', '2022-04-18 00:00:00', '2022-07-03 00:00:00', 'segundo trimestre 2022');
+INSERT INTO `periodoacademico` (`PA_ID`, `PA_FECHA_INICIO`, `PA_FECHA_FIN`, `PA_NOMBRE`) VALUES ('3', '2022-07-18 00:00:00', '2022-09-30 00:00:00', 'tercer trimestre 2022');
+INSERT INTO `periodoacademico` (`PA_ID`, `PA_FECHA_INICIO`, `PA_FECHA_FIN`, `PA_NOMBRE`) VALUES ('4', '2022-10-03 00:00:00', '2022-12-16 10:59:31', 'cuarto trimestre 2022');
+
+---ambiente
+INSERT INTO `ambiente` (`AMB_CODIGO`, `AMB_NOMBRE`, `AMB_TIPO_AMBIENTE`, `AMB_CAPACIDAD`, `AMB_UBICACION`) VALUES ('AA001', 'Salon fundacion del area andina', 'presencial', '40', 'zona norte');
+INSERT INTO `ambiente` (`AMB_CODIGO`, `AMB_NOMBRE`, `AMB_TIPO_AMBIENTE`, `AMB_CAPACIDAD`, `AMB_UBICACION`) VALUES ('AA002', 'Salon fundadores region norte', 'presencial', '30', 'Popayán');
+INSERT INTO `ambiente` (`AMB_CODIGO`, `AMB_NOMBRE`, `AMB_TIPO_AMBIENTE`, `AMB_CAPACIDAD`, `AMB_UBICACION`) VALUES ('AA003', 'Cocina especializada en frio', 'presencial', '30', 'zona este');
+INSERT INTO `ambiente` (`AMB_CODIGO`, `AMB_NOMBRE`, `AMB_TIPO_AMBIENTE`, `AMB_CAPACIDAD`, `AMB_UBICACION`) VALUES ('AA004', 'Salón de operaciones industriales', 'presencial', '40', 'Popayán');
+
+---usuario
+INSERT INTO `usuario` (`US_ID`, `US_TIPO_ID`, `US_NOMBRE`, `US_APELLIDO`, `US_ROL`) VALUES ('1000444666', 'CC', 'Fernanda Karin', 'Chavez Alegria', 'admin');
+INSERT INTO `usuario` (`US_ID`, `US_TIPO_ID`, `US_NOMBRE`, `US_APELLIDO`, `US_ROL`) VALUES ('111555999', 'CC', 'Camilo Andres', 'Piedra Cañon', 'docente');
+
+--coordinador
+INSERT INTO `cordinador` (`US_ID`, `US_TIPO_ID`, `US_NOMBRE`, `US_APELLIDO`, `US_ROL`, `COR_FECHA_INICIO`) VALUES ('1000444666', 'CC', 'Fernanda Karin', 'Chavez Alegria', 'admin', '2021-11-01 11:30:21');
+
+--docente
+INSERT INTO `docente` (`US_ID`, `US_TIPO_ID`, `US_NOMBRE`, `US_APELLIDO`, `US_ROL`, `AREA_ID`, `PROG_CODIGO`, `DOC_TIPO_DOCENTE`, `DOC_TIPO_CONTRATO`) VALUES ('111555999', 'CC', 'Camilo Andres', 'Piedra Cañon', 'docente', '4', '6', 'profesional', 'PT');
+
+
