@@ -1,6 +1,7 @@
 package co.unicauca.edu.schedule.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,19 +13,21 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 @Entity
 @Table(name="ambiente")
 public class Ambiente {
 
     @Id
+    @Column(name="amb_codigo")
     private String codigo;
-    @Column(name="AMB_nombre")
+    @Column(name="amb_nombre")
     private String nombre;
-    @Column(name="AMB_tipo_ambiente")
+    @Column(name="amb_tipo_ambiente")
     private String tipoAmbiente;
-    @Column(name="AMB_capacidad")
+    @Column(name="amb_capacidad")
     private Integer capacidad;
-    @Column(name="AMB_ubicacion")
+    @Column(name="amb_ubicacion")
     private String ubicacion;
 
 }
