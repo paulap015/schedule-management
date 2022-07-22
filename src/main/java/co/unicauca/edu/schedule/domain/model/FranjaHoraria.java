@@ -1,4 +1,4 @@
-package co.unicauca.edu.schedule.model;
+package co.unicauca.edu.schedule.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

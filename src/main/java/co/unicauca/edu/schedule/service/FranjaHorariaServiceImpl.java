@@ -1,9 +1,8 @@
 package co.unicauca.edu.schedule.service;
 
 import co.unicauca.edu.schedule.dao.IFranjaHorariaRepository;
-import co.unicauca.edu.schedule.model.Ambiente;
-import co.unicauca.edu.schedule.model.Competencia;
-import co.unicauca.edu.schedule.model.FranjaHoraria;
+import co.unicauca.edu.schedule.domain.model.Competencia;
+import co.unicauca.edu.schedule.domain.model.FranjaHoraria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

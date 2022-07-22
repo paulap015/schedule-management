@@ -1,7 +1,6 @@
 package co.unicauca.edu.schedule.service;
 
-import co.unicauca.edu.schedule.model.Competencia;
-import co.unicauca.edu.schedule.model.FranjaHoraria;
+import co.unicauca.edu.schedule.domain.model.Competencia;
 
 import java.util.List;
 import java.util.Optional;
