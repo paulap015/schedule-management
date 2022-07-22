@@ -1,7 +1,7 @@
 package co.unicauca.edu.schedule.controller;
 
-import co.unicauca.edu.schedule.model.Ambiente;
-import co.unicauca.edu.schedule.model.FranjaHoraria;
+import co.unicauca.edu.schedule.domain.model.Ambiente;
+import co.unicauca.edu.schedule.domain.model.FranjaHoraria;
 import co.unicauca.edu.schedule.service.IFranjaHorariaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

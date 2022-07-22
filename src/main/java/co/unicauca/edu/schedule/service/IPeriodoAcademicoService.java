@@ -1,6 +1,6 @@
 package co.unicauca.edu.schedule.service;
 import java.util.Optional;
-import co.unicauca.edu.schedule.model.PeriodoAcademico;
+import co.unicauca.edu.schedule.domain.model.PeriodoAcademico;
 
 public interface IPeriodoAcademicoService {
     public Iterable<PeriodoAcademico> findAll();

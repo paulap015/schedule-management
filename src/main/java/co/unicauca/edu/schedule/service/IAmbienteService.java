@@ -1,6 +1,6 @@
 package co.unicauca.edu.schedule.service;
 
-import co.unicauca.edu.schedule.model.Ambiente;
+import co.unicauca.edu.schedule.domain.model.Ambiente;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package co.unicauca.edu.schedule.model;
+package co.unicauca.edu.schedule.domain.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,4 +35,7 @@ public class PeriodoAcademico {
     private String fechaFin;
     @Column(name = "pa_nombre")
     private String nombre;
+
+    @Column(name="pa_estado")
+    private Boolean estado;
 }

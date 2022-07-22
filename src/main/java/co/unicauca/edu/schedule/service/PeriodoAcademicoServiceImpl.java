@@ -4,7 +4,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import co.unicauca.edu.schedule.dao.IPeriodoAcademicoRepository;
-import co.unicauca.edu.schedule.model.PeriodoAcademico;
+import co.unicauca.edu.schedule.domain.model.PeriodoAcademico;
 
 @Service
 public class PeriodoAcademicoServiceImpl implements IPeriodoAcademicoService {

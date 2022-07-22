@@ -1,6 +1,6 @@
 package co.unicauca.edu.schedule.dao;
 
-import co.unicauca.edu.schedule.model.Ambiente;
+import co.unicauca.edu.schedule.domain.model.Ambiente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
