@@ -8,7 +8,14 @@ import org.springframework.web.bind.annotation.*;
 import co.unicauca.edu.schedule.domain.model.PeriodoAcademico;
 import co.unicauca.edu.schedule.service.IPeriodoAcademicoService;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("/periodoacademico")
 public class PeriodoAcademicoController {
 
@@ -17,6 +24,7 @@ public class PeriodoAcademicoController {
     private IPeriodoAcademicoService periodoAcademicoService;
 
     /*C*/
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/create")
     public ResponseEntity<PeriodoAcademico> save(@RequestBody PeriodoAcademico activity){
@@ -33,6 +41,18 @@ public class PeriodoAcademicoController {
         }
         return ResponseEntity.ok(db);
     }
+
+
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @GetMapping("/all")
+    public ResponseEntity<List<PeriodoAcademico>> getAll(){
+        List<PeriodoAcademico> periodos = StreamSupport
+                .stream(this.periodoAcademicoService.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(periodos);
+    }
+
+
     /*U*/
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/update")
