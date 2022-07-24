@@ -18,15 +18,14 @@ public class FranjaHoraria {
 
     @Id
     @Column(name="hor_id")
-    private Integer id;
+    private Integer idHorario;
 
     @ManyToOne
     @JoinColumn(name="comp_codigo", nullable=false)
-    //@Column(name="comp_codigo")
     private Competencia codigoCompetencia;
-
-    @Column(name="us_id")
-    private Integer idUsuario;
+    @ManyToOne
+    @JoinColumn(name="us_id", nullable=false)
+    private Docente idDocente;
 
     @Column(name="hor__hora_inicio")
     private Date horaInicio;

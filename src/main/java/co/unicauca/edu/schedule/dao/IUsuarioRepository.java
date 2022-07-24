@@ -10,4 +10,7 @@ public interface IUsuarioRepository extends JpaRepository<Usuario,Integer> {
 
     @Query
     Usuario findByUsername(String username);
+
+    @Query
+    Usuario findById(String id);
 }

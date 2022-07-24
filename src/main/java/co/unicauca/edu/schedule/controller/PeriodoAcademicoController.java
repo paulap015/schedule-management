@@ -29,6 +29,9 @@ public class PeriodoAcademicoController {
     @PostMapping("/create")
     public ResponseEntity<PeriodoAcademico> save(@RequestBody PeriodoAcademico activity){
         PeriodoAcademico db = periodoAcademicoService.save(activity);
+        if(db == null){
+            return ResponseEntity.ok(PeriodoAcademico.builder().build());
+        }
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(db);
     }
     /*R*/

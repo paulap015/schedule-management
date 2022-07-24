@@ -1,8 +1,13 @@
 package co.unicauca.edu.schedule.service;
 
 import co.unicauca.edu.schedule.dao.IFranjaHorariaRepository;
+import co.unicauca.edu.schedule.dao.IPAARepository;
 import co.unicauca.edu.schedule.domain.model.Competencia;
+import co.unicauca.edu.schedule.domain.model.Docente;
 import co.unicauca.edu.schedule.domain.model.FranjaHoraria;
+import co.unicauca.edu.schedule.domain.model.PeriodoAcademicoAmbiente;
+import co.unicauca.edu.schedule.dto.FranjaDTO;
+import co.unicauca.edu.schedule.utils.DTOtoClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +21,16 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
     private IFranjaHorariaRepository franjaRepository;
     @Autowired
     private ICompetenciaService competenciaService;
+    @Autowired
+    private IDocenteService docenteService;
+    @Autowired
+    private IPAAService paaService;
 
+    @Autowired
+    private IPAARepository paaRepository;
+
+    @Autowired
+    private DTOtoClass util;
     @Override
     public List<FranjaHoraria> findAll() {
         return franjaRepository.findAll();
@@ -29,15 +43,23 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
     }
 
     @Override
-    public FranjaHoraria save(FranjaHoraria franja) {
+    public FranjaHoraria save(FranjaDTO franjaDTO) {
 
+        Optional<Competencia> comp = competenciaService.findById(franjaDTO.getCodigoCompetencia());
+        Docente doc = docenteService.findById(franjaDTO.getIdDocente());
 
-        Optional<Competencia> comp = competenciaService.findById(franja.getCodigoCompetencia().getCodigo());
         if(comp==null){
             return null;
         }
+        if(doc==null){
+            return null;
+        }
+        FranjaHoraria franja = util.dtoFranja(franjaDTO,doc,comp.get());
         franja.setCodigoCompetencia(comp.get());
-        return franjaRepository.save(franja);
+        franja.setIdDocente(doc);
+        FranjaHoraria newFran= franjaRepository.save(franja);
+        paaService.save(franjaDTO,newFran);
+        return newFran;
     }
 
     @Override
@@ -47,7 +69,7 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
 
     @Override
     public FranjaHoraria update(FranjaHoraria franja) {
-        Optional<FranjaHoraria> fran = findById(franja.getId());
+        Optional<FranjaHoraria> fran = findById(franja.getIdHorario());
         if (fran.isEmpty()){
             return null;
         }
@@ -61,8 +83,13 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
         fran.get().setCodigoCompetencia(comp.get());
         fran.get().setHoraInicio(franja.getHoraInicio());
         fran.get().setHoraFin(franja.getHoraFin());
-        fran.get().setId(franja.getId());
+        fran.get().setIdHorario(franja.getIdHorario());
 
         return franjaRepository.save(fran.get());
+    }
+
+    @Override
+    public List<PeriodoAcademicoAmbiente> allSchedule(Integer id) {
+        return paaRepository.findByHor(id);
     }
 }

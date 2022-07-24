@@ -2,8 +2,13 @@ package co.unicauca.edu.schedule.controller;
 
 import co.unicauca.edu.schedule.domain.model.Ambiente;
 import co.unicauca.edu.schedule.domain.model.FranjaHoraria;
+import co.unicauca.edu.schedule.domain.model.PeriodoAcademicoAmbiente;
+import co.unicauca.edu.schedule.dto.FranjaDTO;
 import co.unicauca.edu.schedule.service.IFranjaHorariaService;
+import co.unicauca.edu.schedule.service.IPAAService;
+import co.unicauca.edu.schedule.utils.DTOtoClass;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +19,16 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/franjahoraria")
 public class FranjaHorariaController {
-
+    @Lazy
     @Autowired
     private IFranjaHorariaService franjaService;
+
+    @Lazy
+    @Autowired
+    private IPAAService paaService;
+    @Lazy
+    @Autowired
+    private DTOtoClass util;
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @GetMapping("all")
@@ -28,9 +40,25 @@ public class FranjaHorariaController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("create")
-    public ResponseEntity<FranjaHoraria> create(@RequestBody FranjaHoraria franja){
+    public ResponseEntity<FranjaHoraria> create(@RequestBody FranjaDTO franja){
         FranjaHoraria fran = franjaService.save(franja);
+        if(fran == null){
+            return ResponseEntity.ok(FranjaHoraria.builder().build());
+        }
+
+        paaService.save(franja,fran);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(fran);
+    }
+
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @GetMapping("horario/{id}")
+    public ResponseEntity<?> getHorario(@PathVariable("id") int id){
+        List<PeriodoAcademicoAmbiente> horario = franjaService.allSchedule(id);
+
+        if (horario==null){
+            return ResponseEntity.ok(FranjaHoraria.builder().build());
+        }
+        return ResponseEntity.ok(horario);
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -39,7 +67,7 @@ public class FranjaHorariaController {
         Optional<FranjaHoraria> franja = franjaService.findById(id);
 
         if (franja==null){
-            return ResponseEntity.ok(Ambiente.builder().build());
+            return ResponseEntity.ok(FranjaHoraria.builder().build());
         }
         return ResponseEntity.ok(franja);
     }
