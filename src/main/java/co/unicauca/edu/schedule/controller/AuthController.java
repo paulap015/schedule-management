@@ -41,7 +41,10 @@ public class AuthController {
     public ResponseEntity<?> createToken(@RequestBody AuthenticationRequest request){
         try {
             Usuario buscarCliente = clienteService.findByUsername(request.getUsername());
-            if (buscarCliente==null){
+
+            System.out.println("Buscar clientes "+buscarCliente);
+            if (buscarCliente.getId()==null){
+
                 return new ResponseEntity<>(UsuarioDTO.builder().build(), HttpStatus.OK);
             }
 

@@ -20,7 +20,7 @@ public class Usuario {
 
     @Id
     @Column(name="us_id")
-    private Integer id;
+    private String id;
 
     @Column(name="us_tipo_id")
     private String tipoId;

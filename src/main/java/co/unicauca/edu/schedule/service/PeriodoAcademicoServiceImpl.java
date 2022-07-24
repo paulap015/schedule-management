@@ -26,6 +26,8 @@ public class PeriodoAcademicoServiceImpl implements IPeriodoAcademicoService {
 
     @Override
     public PeriodoAcademico save(PeriodoAcademico periodo) {
+
+        //logica del periodo academico 3 o 6 meses
         return this.periodoAcademicoRepository.save(periodo);   
     }
 

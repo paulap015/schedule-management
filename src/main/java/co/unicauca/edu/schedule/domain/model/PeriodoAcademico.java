@@ -25,8 +25,8 @@ public class PeriodoAcademico {
     // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PA_ID")
-    private int id;
+    @Column(name = "pa_ID")
+    private Integer id;
     @Column(name = "pa_fecha_fin")
     @JsonFormat(locale = "hu", shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "CET")
     private String fechaInicio;

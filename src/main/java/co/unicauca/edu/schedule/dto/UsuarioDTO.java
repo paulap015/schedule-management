@@ -14,5 +14,5 @@ public class UsuarioDTO {
     private String username;
     private String token;
     private String rol;
-    private Integer id;
+    private String id;
 }
