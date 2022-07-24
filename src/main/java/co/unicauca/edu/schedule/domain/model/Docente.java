@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -15,11 +16,18 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name="docente")
-public class Docente {
+public class Docente implements Serializable {
+    /*
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idTablaDocente;
 
+    @ManyToOne(optional=false)
+    @JoinColumn(name="us_id") */
     @Id
     @Column(name="us_id")
     private String id;
+    /*
     @Column(name="us_tipo_id")
     private String tipoId;
     @Column(name="us_nombre")
@@ -28,6 +36,7 @@ public class Docente {
     private String apellido;
     @Column(name="us_rol")
     private String rol;
+    */
     @ManyToOne
     @JoinColumn(name="area_id", nullable=false)
     private Area areaId;

@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,6 +18,9 @@ public class Competencia{
     @Id
     @Column(name="comp_codigo")
     private Integer codigo;
+    @ManyToOne
+    @JoinColumn(name="prog_codigo", nullable=false)
+    private Programa progCodigo;
     @Column(name = "comp_tipo")
     private String tipoComp;
     @Column(name="comp_nombre")

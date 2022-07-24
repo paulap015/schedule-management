@@ -54,7 +54,7 @@ public class UsuarioServiceImpl implements  IUsuarioService {
         if(doc.getRol().equalsIgnoreCase("docente")){
 
 
-            docenteService.save(util.dtoDoc(doc,area,programa));
+            docenteService.save(util.dtoDoc(doc,area,programa,usuario));
         }
 
         return usuario;

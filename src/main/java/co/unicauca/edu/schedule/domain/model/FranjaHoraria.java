@@ -17,6 +17,7 @@ import java.util.Date;
 public class FranjaHoraria {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="hor_id")
     private Integer idHorario;
 
@@ -27,7 +28,7 @@ public class FranjaHoraria {
     @JoinColumn(name="us_id", nullable=false)
     private Docente idDocente;
 
-    @Column(name="hor__hora_inicio")
+    @Column(name="hor_hora_inicio")
     private Date horaInicio;
 
     @Column(name="hor_hora_fin")

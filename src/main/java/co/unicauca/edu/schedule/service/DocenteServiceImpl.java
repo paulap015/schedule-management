@@ -8,6 +8,8 @@ import co.unicauca.edu.schedule.dto.DocenteDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DocenteServiceImpl implements  IDocenteService{
 
@@ -40,5 +42,10 @@ public class DocenteServiceImpl implements  IDocenteService{
     @Override
     public Docente findById(String id) {
         return docenteRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Docente> findAll() {
+        return docenteRepository.findAll();
     }
 }

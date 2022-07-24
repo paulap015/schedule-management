@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +41,7 @@ public class FranjaHorariaController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("create")
-    public ResponseEntity<FranjaHoraria> create(@RequestBody FranjaDTO franja){
+    public ResponseEntity<FranjaHoraria> create(@RequestBody FranjaDTO franja) throws ParseException {
         FranjaHoraria fran = franjaService.save(franja);
         if(fran == null){
             return ResponseEntity.ok(FranjaHoraria.builder().build());
@@ -51,9 +52,9 @@ public class FranjaHorariaController {
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @GetMapping("horario/{id}")
+    @GetMapping("horarioDoc/{id}")
     public ResponseEntity<?> getHorario(@PathVariable("id") int id){
-        List<PeriodoAcademicoAmbiente> horario = franjaService.allSchedule(id);
+        List<FranjaHoraria> horario = franjaService.allScheduleDoc(String.valueOf(id));
 
         if (horario==null){
             return ResponseEntity.ok(FranjaHoraria.builder().build());

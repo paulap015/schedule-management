@@ -16,6 +16,7 @@ import java.util.Date;
 @Table(name="periodoacademicoambiente")
 public class PeriodoAcademicoAmbiente {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="paa_id")
     private Integer idPaa;
     @ManyToOne
@@ -25,6 +26,6 @@ public class PeriodoAcademicoAmbiente {
     @JoinColumn(name="pa_id")
     private PeriodoAcademico paId;
     @ManyToOne
-    @JoinColumn(name="hor")
+    @JoinColumn(name="hor_id")
     private FranjaHoraria hor;
 }
