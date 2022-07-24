@@ -49,9 +49,10 @@ public class PeriodoAcademicoController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @GetMapping("/all")
     public ResponseEntity<List<PeriodoAcademico>> getAll(){
-        List<PeriodoAcademico> periodos = StreamSupport
+       /* List<PeriodoAcademico> periodos = StreamSupport
                 .stream(this.periodoAcademicoService.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()); */
+        List<PeriodoAcademico> periodos =periodoAcademicoService.findAll();
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(periodos);
     }
 

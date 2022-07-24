@@ -61,7 +61,7 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
         }
         //validar que la hora tenga sentido
         try {
-            if(validarFecha(convertidor.stringToDate(franjaDTO.getHoraInicio()),convertidor.stringToDate(franjaDTO.getHoraFin()))==false){
+            if(validarFecha(convertidor.stringToDateH(franjaDTO.getHoraInicio()),convertidor.stringToDateH(franjaDTO.getHoraFin()))==false){
                 System.out.println("Las horas no son correctas");
                 return null;
             }
