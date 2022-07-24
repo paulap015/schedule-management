@@ -4,10 +4,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -15,12 +13,18 @@ import java.util.Date;
 @Data
 @Builder
 @Entity
-@Table(name="coordinador")
-public class Cordinador {
+@Table(name="cordinador")
+public class Cordinador implements Serializable {
+    /*
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idTablaCordinador;
 
+    @ManyToOne
+    @JoinColumn(name="us_id") */
     @Id
     @Column(name="us_id")
-    private Integer id;
+    private String id;
     @Column(name="cor_username")
     private String username;
     @Column(name="cor_fecha_inicio")

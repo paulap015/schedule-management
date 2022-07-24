@@ -22,10 +22,10 @@ public class FranjaDTO {
     private Integer paaId; //id de periodoAcademicoAmbiente
     private Integer codigoCompetencia;
     private String idDocente;
-    private Date horaInicio;
-    private Date horaFin;
+    private String horaInicio;
+    private String horaFin;
     private String dia;
-    private Boolean disponible;
+    //private Boolean disponible;
 
     private String ambienteCod;
     private Integer paId; //id periodo academico

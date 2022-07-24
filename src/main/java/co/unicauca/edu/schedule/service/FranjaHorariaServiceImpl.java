@@ -7,10 +7,14 @@ import co.unicauca.edu.schedule.domain.model.Docente;
 import co.unicauca.edu.schedule.domain.model.FranjaHoraria;
 import co.unicauca.edu.schedule.domain.model.PeriodoAcademicoAmbiente;
 import co.unicauca.edu.schedule.dto.FranjaDTO;
+import co.unicauca.edu.schedule.utils.ConvertHour;
 import co.unicauca.edu.schedule.utils.DTOtoClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,25 +47,45 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
     }
 
     @Override
-    public FranjaHoraria save(FranjaDTO franjaDTO) {
+    public FranjaHoraria save(FranjaDTO franjaDTO) throws ParseException {
 
         Optional<Competencia> comp = competenciaService.findById(franjaDTO.getCodigoCompetencia());
         Docente doc = docenteService.findById(franjaDTO.getIdDocente());
-
+        ConvertHour convertidor = new ConvertHour();
+        //validar que competencia docente existan
         if(comp==null){
             return null;
         }
         if(doc==null){
             return null;
         }
-        FranjaHoraria franja = util.dtoFranja(franjaDTO,doc,comp.get());
+        //validar que la hora tenga sentido
+        try {
+            if(validarFecha(convertidor.stringToDate(franjaDTO.getHoraInicio()),convertidor.stringToDate(franjaDTO.getHoraFin()))==false){
+                System.out.println("Las horas no son correctas");
+                return null;
+            }
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        //validar que el maestro no este ocupado a esa hora y ese dia
+        FranjaHoraria franja = util.dtoFranja(franjaDTO,doc,comp.get()); //obj completo de franja
         franja.setCodigoCompetencia(comp.get());
         franja.setIdDocente(doc);
+        franja.setDisponible(false);
         FranjaHoraria newFran= franjaRepository.save(franja);
-        paaService.save(franjaDTO,newFran);
+        paaService.save(franjaDTO,newFran); //creando nuevo periodo academico ambiente
         return newFran;
     }
+    private boolean validarFecha(Date inicial, Date fin){
 
+        System.out.println("apunto de ver vlaidaciones "+inicial.before(fin) +" and "+(Double.valueOf(fin.getHours())-Double.valueOf(inicial.getHours())));
+        if(inicial.before(fin) && (fin.getHours()-inicial.getHours()==2)){
+            System.out.println("Las validaciones es correcto");
+            return true;
+        }
+        return false;
+    }
     @Override
     public void deleteById(int id) {
         franjaRepository.deleteById(id);
@@ -89,7 +113,7 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
     }
 
     @Override
-    public List<PeriodoAcademicoAmbiente> allSchedule(Integer id) {
-        return paaRepository.findByHor(id);
+    public List<FranjaHoraria> allScheduleDoc(String id) {
+        return franjaRepository.findByIdDocente(id);
     }
 }

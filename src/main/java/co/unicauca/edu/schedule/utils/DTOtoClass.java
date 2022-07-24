@@ -5,18 +5,26 @@ import co.unicauca.edu.schedule.dto.DocenteDTO;
 import co.unicauca.edu.schedule.dto.FranjaDTO;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
+
 @Component
 public class DTOtoClass {
 
-    public Docente dtoDoc(DocenteDTO dto, Area area, Programa programa) {
+    public Docente dtoDoc(DocenteDTO dto, Area area, Programa programa,Usuario user) {
         Docente doc = new Docente();
+        //doc.setId(user);
         doc.setId(dto.getId());
+        /*
+
         doc.setApellido(dto.getApellido());
         doc.setRol(dto.getRol());
         doc.setNombre(dto.getNombre());
+        doc.setTipoId(dto.getTipoId());
+
+         */
         doc.setTipoContrato(dto.getTipoContrato());
         doc.setAreaId(area);
-        doc.setTipoId(dto.getTipoId());
+
         doc.setTipoDocente(dto.getTipoDocente());
         doc.setProgCodigo(programa);
 
@@ -34,15 +42,15 @@ public class DTOtoClass {
 
         return usuario;
     }
-    public FranjaHoraria dtoFranja(FranjaDTO franjaDTO,Docente doc , Competencia comp){
+    public FranjaHoraria dtoFranja(FranjaDTO franjaDTO,Docente doc , Competencia comp) throws ParseException {
         FranjaHoraria franja = new FranjaHoraria();
-
+        ConvertHour convertidor = new ConvertHour();
         franja.setDia(franjaDTO.getDia());
-        franja.setDisponible(franjaDTO.getDisponible());
+        //franja.setDisponible(franjaDTO.getDisponible());
         franja.setCodigoCompetencia(comp);
         franja.setIdDocente(doc);
-        franja.setHoraInicio(franjaDTO.getHoraInicio());
-        franja.setHoraFin(franjaDTO.getHoraFin());
+        franja.setHoraInicio(convertidor.stringToDate(franjaDTO.getHoraInicio()));
+        franja.setHoraFin(convertidor.stringToDate(franjaDTO.getHoraFin()));
         franja.setIdHorario(franjaDTO.getIdHorario());
         return franja;
     }
