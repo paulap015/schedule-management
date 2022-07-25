@@ -39,7 +39,7 @@ public class PeriodoAcademicoServiceImpl implements IPeriodoAcademicoService {
         try {
             if(validarFecha(convertidor.stringToDateD(periodo.getFechaInicio()),convertidor.stringToDateD(periodo.getFechaFin()))==false){
                 System.out.println("Las fechas no son correctas");
-                return null;
+                //return null;
             }
         } catch (ParseException e) {
             throw new RuntimeException(e);

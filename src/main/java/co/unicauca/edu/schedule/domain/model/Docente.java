@@ -16,27 +16,12 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name="docente")
-public class Docente implements Serializable {
-    /*
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idTablaDocente;
+public class Docente implements  Serializable {
 
-    @ManyToOne(optional=false)
-    @JoinColumn(name="us_id") */
     @Id
     @Column(name="us_id")
     private String id;
-    /*
-    @Column(name="us_tipo_id")
-    private String tipoId;
-    @Column(name="us_nombre")
-    private String nombre;
-    @Column(name="us_apellido")
-    private String apellido;
-    @Column(name="us_rol")
-    private String rol;
-    */
+
     @ManyToOne
     @JoinColumn(name="area_id", nullable=false)
     private Area areaId;
@@ -49,4 +34,10 @@ public class Docente implements Serializable {
 
     @Column(name="doc_tipo_contrato")
     private String tipoContrato;
+
+    @Column(name="doc_horas_realizadas")
+    private Integer horas;
+
+    @Column(name="doc_is_available")
+    private Boolean available;
 }

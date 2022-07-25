@@ -14,14 +14,6 @@ public class DTOtoClass {
         Docente doc = new Docente();
         //doc.setId(user);
         doc.setId(dto.getId());
-        /*
-
-        doc.setApellido(dto.getApellido());
-        doc.setRol(dto.getRol());
-        doc.setNombre(dto.getNombre());
-        doc.setTipoId(dto.getTipoId());
-
-         */
         doc.setTipoContrato(dto.getTipoContrato());
         doc.setAreaId(area);
 
@@ -49,10 +41,26 @@ public class DTOtoClass {
         //franja.setDisponible(franjaDTO.getDisponible());
         franja.setCodigoCompetencia(comp);
         franja.setIdDocente(doc);
-        franja.setHoraInicio(convertidor.stringToDateH(franjaDTO.getHoraInicio()));
-        franja.setHoraFin(convertidor.stringToDateH(franjaDTO.getHoraFin()));
+        //franja.setHoraInicio(convertidor.stringToDateH(franjaDTO.getHoraInicio()));
+        //franja.setHoraFin(convertidor.stringToDateH(franjaDTO.getHoraFin()));
+        franja.setHoraInicio(franjaDTO.getHoraInicio());
+        franja.setHoraFin(franjaDTO.getHoraFin());
         franja.setIdHorario(franjaDTO.getIdHorario());
         return franja;
+    }
+
+    public FranjaDTO classToFranjaDTO(FranjaHoraria franja,PeriodoAcademicoAmbiente paa){
+        FranjaDTO dto = new FranjaDTO();
+        dto.setPaaId(paa.getIdPaa());
+        dto.setCodigoCompetencia(franja.getCodigoCompetencia().getCodigo());
+        dto.setIdDocente(franja.getIdDocente().getId());
+        dto.setHoraInicio(franja.getHoraInicio());
+        dto.setHoraFin(franja.getHoraFin());
+        dto.setDia(franja.getDia());
+        dto.setAmbienteCod(paa.getAmbienteCod().getCodigo());
+        dto.setPaId(paa.getPaId().getId());
+        dto.setIdHorario(paa.getHor().getIdHorario());
+        return dto;
     }
 
 }

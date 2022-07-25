@@ -21,7 +21,7 @@ public class DocenteController {
     @GetMapping("all")
     public ResponseEntity<?> getAll(){
 
-        List<Docente> docentes = docenteService.findAll();
+        List<Docente> docentes = docenteService.findAllAvailable();//docenteService.findAll();
         return new ResponseEntity<>(docentes,HttpStatus.OK);
     }
 }

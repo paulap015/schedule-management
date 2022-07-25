@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PAAServiceImpl implements  IPAAService{
 
@@ -33,11 +35,19 @@ public class PAAServiceImpl implements  IPAAService{
         //util.dtoPAA(franjaDTO,newFran);
         Ambiente ambiente = ambienteService.findById(franjaDTO.getAmbienteCod()).orElse(null);
         PeriodoAcademico pa = paService.findById(franjaDTO.getPaId()).orElse(null);
+        if (ambiente == null || pa ==null){
+            return null;
+        }
         PeriodoAcademicoAmbiente paa = new PeriodoAcademicoAmbiente();
         paa.setIdPaa(franjaDTO.getPaaId());
         paa.setHor(fran);
         paa.setAmbienteCod(ambiente);
         paa.setPaId(pa);
         return paaRepository.save(paa);
+    }
+
+    @Override
+    public List<PeriodoAcademicoAmbiente> findAll() {
+        return paaRepository.findAll();
     }
 }
