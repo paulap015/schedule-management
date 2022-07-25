@@ -37,7 +37,5 @@ public class FranjaHoraria {
     @Column(name="hor_dia")
     private String dia;
 
-    @Column(name="hor_disponible")
-    private Boolean disponible;
 
 }

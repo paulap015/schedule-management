@@ -14,12 +14,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -40,10 +38,10 @@ public class AuthController {
     //public ResponseEntity<AuthenticationResponse> createToken(@RequestBody AuthenticationRequest request){
     public ResponseEntity<?> createToken(@RequestBody AuthenticationRequest request){
         try {
-            Usuario buscarCliente = clienteService.findByUsername(request.getUsername());
+            Usuario buscarCliente = clienteService.findByUsername(request.getUsername()).orElse(null);
 
-            System.out.println("Buscar clientes "+buscarCliente);
-            if (buscarCliente.getId()==null){
+            //System.out.println("Buscar clientes "+buscarCliente);
+            if (buscarCliente==null){
 
                 return new ResponseEntity<>(UsuarioDTO.builder().build(), HttpStatus.OK);
             }

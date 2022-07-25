@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserDetailsScheduleService implements UserDetailsService {
@@ -23,7 +24,7 @@ public class UserDetailsScheduleService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario user = usuarioRepository.findByUsername(username);
+        Usuario user = usuarioRepository.findByUsername(username).orElse(null);
 
         if(user ==null){
             throw new UsernameNotFoundException(username);

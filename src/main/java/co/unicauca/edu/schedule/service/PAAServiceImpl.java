@@ -46,8 +46,34 @@ public class PAAServiceImpl implements  IPAAService{
         return paaRepository.save(paa);
     }
 
+
+
     @Override
     public List<PeriodoAcademicoAmbiente> findAll() {
         return paaRepository.findAll();
+    }
+
+    @Override
+    public List<PeriodoAcademicoAmbiente> findAllByPa(Integer pa) {
+        return paaRepository.findByPa(pa);
+    }
+
+    @Override
+    public PeriodoAcademicoAmbiente update(FranjaDTO franjaDTO,FranjaHoraria fran) {
+        PeriodoAcademicoAmbiente paa = paaRepository.findByHor(franjaDTO.getIdHorario());
+        Ambiente ambiente = ambienteService.findById(franjaDTO.getAmbienteCod()).orElse(null);
+
+        if(ambiente == null ){
+            return null;
+        }
+        paa.setHor(fran);
+        paa.setAmbienteCod(ambiente);
+
+        return paaRepository.save(paa);
+    }
+
+    @Override
+    public PeriodoAcademicoAmbiente findByHor(Integer id) {
+        return paaRepository.findByHor(id);
     }
 }

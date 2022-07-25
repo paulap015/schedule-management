@@ -7,6 +7,7 @@ import co.unicauca.edu.schedule.domain.model.Docente;
 import co.unicauca.edu.schedule.domain.model.FranjaHoraria;
 import co.unicauca.edu.schedule.domain.model.PeriodoAcademicoAmbiente;
 import co.unicauca.edu.schedule.dto.FranjaDTO;
+import co.unicauca.edu.schedule.dto.FranjaResponseDTO;
 import co.unicauca.edu.schedule.utils.ConvertHour;
 import co.unicauca.edu.schedule.utils.DTOtoClass;
 import co.unicauca.edu.schedule.utils.Validar;
@@ -73,7 +74,7 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
         FranjaHoraria franja = util.dtoFranja(franjaDTO,doc,comp); //obj completo de franja
         franja.setCodigoCompetencia(comp);
         franja.setIdDocente(doc);
-        franja.setDisponible(false);
+
 
         FranjaHoraria newFran= franjaRepository.save(franja);
         paaService.save(franjaDTO,newFran); //creando nuevo periodo academico ambiente
@@ -86,24 +87,38 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
     }
 
     @Override
-    public FranjaHoraria update(FranjaHoraria franja) {
-        Optional<FranjaHoraria> fran = findById(franja.getIdHorario());
-        if (fran.isEmpty()){
+    public FranjaHoraria update(FranjaDTO franjaDTO) throws ParseException {
+
+        FranjaHoraria fran = findById(franjaDTO.getIdHorario()).orElse(null);
+        Docente doc = docenteService.findById(franjaDTO.getIdDocente());
+        Competencia comp = competenciaService.findById(franjaDTO.getCodigoCompetencia()).orElse(null);
+        boolean bandera = false;
+        if(comp==null || doc==null || fran ==null){
             return null;
         }
-        Optional<Competencia> comp = competenciaService.findById(franja.getCodigoCompetencia().getCodigo());
-        if(comp==null){
+        if(!validar.validarFranja(franjaDTO, doc)){
             return null;
         }
+        if(doc.getHoras()>0){
+            bandera=true;
+            doc.setHoras(doc.getHoras()-2);
+        }
+        if(!docenteService.canSaveHours(franjaDTO, doc)){ // el docente puede acumular mas horas ?
+            System.out.println("El docente ya cumplio con sus horas semanales o diarias ");
+            if(bandera)doc.setHoras(doc.getHoras()+2);
+            return null;
+        }
+        doc.setHoras(doc.getHoras()+2);
+        docenteService.save(doc);
+        fran.setDia(franjaDTO.getDia());
+        fran.setCodigoCompetencia(comp);
+        fran.setHoraInicio(franjaDTO.getHoraInicio());
+        fran.setHoraFin(franjaDTO.getHoraFin());
+        fran.setIdHorario(franjaDTO.getIdHorario());
 
-        fran.get().setDia(franja.getDia());
-        fran.get().setDisponible(franja.getDisponible());
-        fran.get().setCodigoCompetencia(comp.get());
-        fran.get().setHoraInicio(franja.getHoraInicio());
-        fran.get().setHoraFin(franja.getHoraFin());
-        fran.get().setIdHorario(franja.getIdHorario());
-
-        return franjaRepository.save(fran.get());
+        FranjaHoraria newFran= franjaRepository.save(fran);
+        paaService.update(franjaDTO,newFran); //creando nuevo periodo academico ambiente
+        return newFran;
     }
 
     @Override
@@ -126,13 +141,13 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
         return franjaRepository.franjasHoraDiaOcupado(dia,horaIni);
     }
     @Override
-    public List<FranjaDTO> todoHorarioDocente(String idDocente){
+    public List<FranjaDTO> todoHorarioDocente(String idDocente, Integer idPa){
         List<FranjaDTO> horario= new ArrayList<>();
 
         // obtener toda la franja horaria del docente
         List<FranjaHoraria> franjas = franjaRepository.findByIdDocente(idDocente);
         //obteer todos los paa
-        List<PeriodoAcademicoAmbiente> paaAll= paaService.findAll();
+        List<PeriodoAcademicoAmbiente> paaAll= paaService.findAllByPa(idPa);//paaService.findAll();
         //con cada id de horario sacar los paa y asignarle dia,horaini,horafin
         for(PeriodoAcademicoAmbiente paa: paaAll){
             for(FranjaHoraria franja:franjas){
@@ -143,6 +158,16 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
             }
         }
         return horario;
+    }
+
+    @Override
+    public List<FranjaResponseDTO> listFranjaResponse(List<FranjaHoraria> franjas) {
+        List<FranjaResponseDTO> dtoList=new ArrayList<>();
+        for(FranjaHoraria franja : franjas){
+            FranjaResponseDTO dto = util.classToFranjaResponse(franja);
+            dtoList.add(dto);
+        }
+        return dtoList;
     }
 
 }
