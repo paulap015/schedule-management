@@ -49,8 +49,10 @@ public class DTOtoClass {
         //franja.setDisponible(franjaDTO.getDisponible());
         franja.setCodigoCompetencia(comp);
         franja.setIdDocente(doc);
-        franja.setHoraInicio(convertidor.stringToDateH(franjaDTO.getHoraInicio()));
-        franja.setHoraFin(convertidor.stringToDateH(franjaDTO.getHoraFin()));
+        //franja.setHoraInicio(convertidor.stringToDateH(franjaDTO.getHoraInicio()));
+        //franja.setHoraFin(convertidor.stringToDateH(franjaDTO.getHoraFin()));
+        franja.setHoraInicio(franjaDTO.getHoraInicio());
+        franja.setHoraFin(franjaDTO.getHoraFin());
         franja.setIdHorario(franjaDTO.getIdHorario());
         return franja;
     }

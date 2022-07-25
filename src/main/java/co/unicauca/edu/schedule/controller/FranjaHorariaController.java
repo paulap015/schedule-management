@@ -24,9 +24,7 @@ public class FranjaHorariaController {
     @Autowired
     private IFranjaHorariaService franjaService;
 
-    @Lazy
-    @Autowired
-    private IPAAService paaService;
+
     @Lazy
     @Autowired
     private DTOtoClass util;
@@ -47,7 +45,7 @@ public class FranjaHorariaController {
             return ResponseEntity.ok(FranjaHoraria.builder().build());
         }
 
-        paaService.save(franja,fran);
+
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(fran);
     }
 

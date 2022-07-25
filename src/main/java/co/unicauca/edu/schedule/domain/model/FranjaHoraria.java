@@ -29,10 +29,10 @@ public class FranjaHoraria {
     private Docente idDocente;
 
     @Column(name="hor_hora_inicio")
-    private Date horaInicio;
+    private String horaInicio;
 
     @Column(name="hor_hora_fin")
-    private Date horaFin;
+    private String horaFin;
 
     @Column(name="hor_dia")
     private String dia;

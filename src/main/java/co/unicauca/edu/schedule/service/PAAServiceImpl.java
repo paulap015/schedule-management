@@ -33,6 +33,9 @@ public class PAAServiceImpl implements  IPAAService{
         //util.dtoPAA(franjaDTO,newFran);
         Ambiente ambiente = ambienteService.findById(franjaDTO.getAmbienteCod()).orElse(null);
         PeriodoAcademico pa = paService.findById(franjaDTO.getPaId()).orElse(null);
+        if (ambiente == null || pa ==null){
+            return null;
+        }
         PeriodoAcademicoAmbiente paa = new PeriodoAcademicoAmbiente();
         paa.setIdPaa(franjaDTO.getPaaId());
         paa.setHor(fran);
