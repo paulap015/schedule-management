@@ -7,6 +7,7 @@ import co.unicauca.edu.schedule.domain.model.PeriodoAcademicoAmbiente;
 import co.unicauca.edu.schedule.dto.FranjaDTO;
 import co.unicauca.edu.schedule.service.IDocenteService;
 import co.unicauca.edu.schedule.service.IFranjaHorariaService;
+import co.unicauca.edu.schedule.service.IPAAService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -29,7 +30,7 @@ public class Validar {
 
     @Lazy
     @Autowired
-    private IPAARepository  paaRepository;
+    private IPAAService paaService;
     /*
         va a validar logica de la franja : hora tiene sentido, el maestro esta ocupado en esa hora, el ambiente esta ocupado
 
@@ -89,7 +90,7 @@ public class Validar {
         //retornar todas las franjas que tengan esa hora de inicio en ese dia
         List<FranjaHoraria> franjasOcupadasHora =franjaService.franjasHoraDiaOcupado(dia,hora) ;
         //los todos los p academicos ambientes
-        List<PeriodoAcademicoAmbiente> paaAll= paaRepository.findAll();
+        List<PeriodoAcademicoAmbiente> paaAll= paaService.findAll();
         for(PeriodoAcademicoAmbiente paa: paaAll){
             for(FranjaHoraria franja:franjasOcupadasHora){
                 if(paa.getHor().getIdHorario() == franja.getIdHorario() && paa.getAmbienteCod().getCodigo().equalsIgnoreCase(ambiente)){

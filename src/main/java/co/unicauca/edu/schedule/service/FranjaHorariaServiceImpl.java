@@ -15,10 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
@@ -128,6 +125,24 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
     public List<FranjaHoraria> franjasHoraDiaOcupado(String dia, String horaIni) {
         return franjaRepository.franjasHoraDiaOcupado(dia,horaIni);
     }
+    @Override
+    public List<FranjaDTO> todoHorarioDocente(String idDocente){
+        List<FranjaDTO> horario= new ArrayList<>();
 
+        // obtener toda la franja horaria del docente
+        List<FranjaHoraria> franjas = franjaRepository.findByIdDocente(idDocente);
+        //obteer todos los paa
+        List<PeriodoAcademicoAmbiente> paaAll= paaService.findAll();
+        //con cada id de horario sacar los paa y asignarle dia,horaini,horafin
+        for(PeriodoAcademicoAmbiente paa: paaAll){
+            for(FranjaHoraria franja:franjas){
+                if(paa.getHor().getIdHorario() == franja.getIdHorario() ){
+                    FranjaDTO dtoFranja = util.classToFranjaDTO(franja,paa);
+                    horario.add(dtoFranja);
+                }
+            }
+        }
+        return horario;
+    }
 
 }

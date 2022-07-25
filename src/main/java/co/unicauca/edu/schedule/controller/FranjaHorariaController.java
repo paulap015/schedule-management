@@ -50,9 +50,9 @@ public class FranjaHorariaController {
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @GetMapping("horarioDoc/{id}")
-    public ResponseEntity<?> getHorario(@PathVariable("id") int id){
-        List<FranjaHoraria> horario = franjaService.allScheduleDoc(String.valueOf(id));
+    @GetMapping("horario/{id}")
+    public ResponseEntity<?> getHorario(@PathVariable("id") String id){
+        List<FranjaDTO> horario = franjaService.todoHorarioDocente(id);
 
         if (horario==null){
             return ResponseEntity.ok(FranjaHoraria.builder().build());

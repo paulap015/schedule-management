@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PAAServiceImpl implements  IPAAService{
 
@@ -42,5 +44,10 @@ public class PAAServiceImpl implements  IPAAService{
         paa.setAmbienteCod(ambiente);
         paa.setPaId(pa);
         return paaRepository.save(paa);
+    }
+
+    @Override
+    public List<PeriodoAcademicoAmbiente> findAll() {
+        return paaRepository.findAll();
     }
 }

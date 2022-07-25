@@ -27,4 +27,6 @@ public interface IFranjaHorariaService {
 
     public List<FranjaHoraria> franjasDocenteDiaOcupado( String dia,String doc);
     public List<FranjaHoraria> franjasHoraDiaOcupado( String dia, String horaIni);
+
+    List<FranjaDTO> todoHorarioDocente(String idDocente);
 }
