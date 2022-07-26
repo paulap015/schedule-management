@@ -12,7 +12,7 @@ import java.util.List;
 public interface IPAAService {
 
     public PeriodoAcademicoAmbiente save(FranjaDTO franjaDTO, FranjaHoraria fran);
-
+    public boolean delete(PeriodoAcademicoAmbiente paa);
     public List<PeriodoAcademicoAmbiente> findAll();
 
     public List<PeriodoAcademicoAmbiente> findAllByPa(Integer pa);

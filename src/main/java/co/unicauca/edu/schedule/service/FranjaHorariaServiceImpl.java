@@ -81,9 +81,15 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
         return newFran;
     }
 
+
+
     @Override
-    public void deleteById(int id) {
-        franjaRepository.deleteById(id);
+    public boolean deleteFranja(FranjaHoraria franja) {
+        paaService.delete(paaService.findByHor(franja.getIdHorario()));
+        Docente doc=docenteService.findById(franja.getIdDocente().getId());
+        doc.setHoras(doc.getHoras()-2);
+        franjaRepository.delete(franja);
+        return true;
     }
 
     @Override

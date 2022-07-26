@@ -88,6 +88,7 @@ public class DocenteServiceImpl implements  IDocenteService{
             }
         }
         doc.setAvailable(false); //ya tiene todas sus horas semanales
+        save(doc);
         return false;
     }
 }

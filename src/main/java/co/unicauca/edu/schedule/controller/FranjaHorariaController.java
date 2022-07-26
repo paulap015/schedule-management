@@ -41,10 +41,12 @@ public class FranjaHorariaController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("create")
-    public ResponseEntity<FranjaHoraria> create(@RequestBody FranjaDTO franja) throws ParseException {
+    public ResponseEntity<?> create(@RequestBody FranjaDTO franja) throws ParseException {
         FranjaHoraria fran = franjaService.save(franja);
+
         if(fran == null){
-            return ResponseEntity.ok(FranjaHoraria.builder().build());
+            FranjaResponseDTO fra = new  FranjaResponseDTO("Hubo un problema creando la franja horaria revise la disponibilidad del profesor y el ambiente");
+            return ResponseEntity.ok(fra);
         }
 
 
@@ -94,11 +96,16 @@ public class FranjaHorariaController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @DeleteMapping(value = "delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") int id){
-
-        if(franjaService.findById(id).isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(FranjaHoraria.builder().build());
+        FranjaHoraria franja = franjaService.findById(id).orElse(null);
+        FranjaResponseDTO franj = new  FranjaResponseDTO("Se elimino exitosamente");
+        if(franja==null){
+            franj.setMessage("No existe la franja no se puede Eliminar");
+            return ResponseEntity.ok(franj);
         }
-        franjaService.deleteById(id);
-        return ResponseEntity.ok().build();
+        //franjaService.deleteById(id);
+        if(!franjaService.deleteFranja(franja)){
+            franj.setMessage("No se pudo eliminar la franja");
+        }
+        return ResponseEntity.ok(franj);
     }
 }

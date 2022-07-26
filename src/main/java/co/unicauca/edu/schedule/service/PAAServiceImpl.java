@@ -46,6 +46,12 @@ public class PAAServiceImpl implements  IPAAService{
         return paaRepository.save(paa);
     }
 
+    @Override
+    public boolean delete(PeriodoAcademicoAmbiente paa) {
+
+        paaRepository.delete(paa);
+        return true;
+    }
 
 
     @Override
