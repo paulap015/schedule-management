@@ -16,5 +16,5 @@ public interface IUsuarioService {
     public Usuario save(DocenteDTO usuario);
     public void deleteById(int id);
     public Usuario update(Usuario save);
-    public Usuario findByUsername(String username);
+    public Optional<Usuario> findByUsername(String username);
 }
