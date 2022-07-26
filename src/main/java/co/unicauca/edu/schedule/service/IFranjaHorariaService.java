@@ -18,8 +18,10 @@ public interface IFranjaHorariaService {
     public Optional<FranjaHoraria> findById(int id);
 
     public FranjaHoraria save(FranjaDTO franja) throws ParseException;
-    public void deleteById(int id);
 
+    //public void deleteById(int id);
+
+    public boolean deleteFranja(FranjaHoraria franja);
     public FranjaHoraria update(FranjaDTO franja) throws ParseException;
 
     public List<FranjaHoraria> allScheduleDoc(String id);
