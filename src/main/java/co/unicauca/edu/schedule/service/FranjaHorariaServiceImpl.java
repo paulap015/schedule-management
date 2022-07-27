@@ -2,10 +2,7 @@ package co.unicauca.edu.schedule.service;
 
 import co.unicauca.edu.schedule.dao.IFranjaHorariaRepository;
 import co.unicauca.edu.schedule.dao.IPAARepository;
-import co.unicauca.edu.schedule.domain.model.Competencia;
-import co.unicauca.edu.schedule.domain.model.Docente;
-import co.unicauca.edu.schedule.domain.model.FranjaHoraria;
-import co.unicauca.edu.schedule.domain.model.PeriodoAcademicoAmbiente;
+import co.unicauca.edu.schedule.domain.model.*;
 import co.unicauca.edu.schedule.dto.FranjaDTO;
 import co.unicauca.edu.schedule.dto.FranjaResponseDTO;
 import co.unicauca.edu.schedule.utils.ConvertHour;
@@ -31,7 +28,7 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
     private IPAAService paaService;
 
     @Autowired
-    private IPAARepository paaRepository;
+    private IAmbienteService ambienteService;
 
     @Autowired
     private DTOtoClass util;
@@ -154,12 +151,19 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
         List<FranjaHoraria> franjas = franjaRepository.findByIdDocente(idDocente);
         //obteer todos los paa
         List<PeriodoAcademicoAmbiente> paaAll= paaService.findAllByPa(idPa);//paaService.findAll();
+        List<Ambiente> ambienteAll = ambienteService.findAll();
         //con cada id de horario sacar los paa y asignarle dia,horaini,horafin
         for(PeriodoAcademicoAmbiente paa: paaAll){
+
             for(FranjaHoraria franja:franjas){
-                if(paa.getHor().getIdHorario() == franja.getIdHorario() ){
-                    FranjaDTO dtoFranja = util.classToFranjaDTO(franja,paa);
-                    horario.add(dtoFranja);
+                for(Ambiente ambiente :ambienteAll){
+                    if(paa.getHor().getIdHorario() == franja.getIdHorario() ){
+
+                            FranjaDTO dtoFranja = util.classToFranjaDTO(franja,paa,ambiente);
+                            horario.add(dtoFranja);
+
+
+                    }
                 }
             }
         }

@@ -22,6 +22,7 @@ public class FranjaResponseDTO {
     private String dia;
     private String nombreDocente;
     private String ambienteCod;
+    private String ambienteTipo;
     private String message;
 
     public FranjaResponseDTO(String message) {
