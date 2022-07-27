@@ -36,6 +36,7 @@ public class PAAServiceImpl implements  IPAAService{
         Ambiente ambiente = ambienteService.findById(franjaDTO.getAmbienteCod()).orElse(null);
         PeriodoAcademico pa = paService.findById(franjaDTO.getPaId()).orElse(null);
         if (ambiente == null || pa ==null){
+            System.out.println("No existe ambiente o periodo academico");
             return null;
         }
         PeriodoAcademicoAmbiente paa = new PeriodoAcademicoAmbiente();
