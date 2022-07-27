@@ -61,7 +61,7 @@ public class DTOtoClass {
         return franja;
     }
 
-    public FranjaDTO classToFranjaDTO(FranjaHoraria franja,PeriodoAcademicoAmbiente paa,Ambiente ambiente){
+    public FranjaDTO classToFranjaDTO(FranjaHoraria franja,PeriodoAcademicoAmbiente paa){
         FranjaDTO dto = new FranjaDTO();
         dto.setPaaId(paa.getIdPaa());
         dto.setCodigoCompetencia(franja.getCodigoCompetencia().getCodigo());

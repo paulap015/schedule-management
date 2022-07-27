@@ -151,20 +151,19 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
         List<FranjaHoraria> franjas = franjaRepository.findByIdDocente(idDocente);
         //obteer todos los paa
         List<PeriodoAcademicoAmbiente> paaAll= paaService.findAllByPa(idPa);//paaService.findAll();
-        List<Ambiente> ambienteAll = ambienteService.findAll();
+
         //con cada id de horario sacar los paa y asignarle dia,horaini,horafin
         for(PeriodoAcademicoAmbiente paa: paaAll){
 
             for(FranjaHoraria franja:franjas){
-                for(Ambiente ambiente :ambienteAll){
-                    if(paa.getHor().getIdHorario() == franja.getIdHorario() ){
 
-                            FranjaDTO dtoFranja = util.classToFranjaDTO(franja,paa,ambiente);
-                            horario.add(dtoFranja);
+                if(paa.getHor().getIdHorario() == franja.getIdHorario() ){
 
+                    FranjaDTO dtoFranja = util.classToFranjaDTO(franja,paa);
+                    horario.add(dtoFranja);
 
-                    }
                 }
+
             }
         }
         return horario;
