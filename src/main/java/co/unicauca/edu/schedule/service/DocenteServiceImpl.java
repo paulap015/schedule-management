@@ -40,6 +40,8 @@ public class DocenteServiceImpl implements  IDocenteService{
         }
         doc.setAreaId(area);
         doc.setProgCodigo(programa);
+        doc.setHoras(0);
+        doc.setAvailable(true);
         return docenteRepository.save(doc);
     }
 

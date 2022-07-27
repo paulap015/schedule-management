@@ -24,4 +24,5 @@ public class FranjaDTO {
     private String ambienteCod;
     private Integer paId; //id periodo academico
     private Integer idHorario;
+
 }

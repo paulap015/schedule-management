@@ -61,7 +61,7 @@ public class DTOtoClass {
         return franja;
     }
 
-    public FranjaDTO classToFranjaDTO(FranjaHoraria franja,PeriodoAcademicoAmbiente paa){
+    public FranjaDTO classToFranjaDTO(FranjaHoraria franja,PeriodoAcademicoAmbiente paa,Ambiente ambiente){
         FranjaDTO dto = new FranjaDTO();
         dto.setPaaId(paa.getIdPaa());
         dto.setCodigoCompetencia(franja.getCodigoCompetencia().getCodigo());
@@ -72,6 +72,7 @@ public class DTOtoClass {
         dto.setAmbienteCod(paa.getAmbienteCod().getCodigo());
         dto.setPaId(paa.getPaId().getId());
         dto.setIdHorario(paa.getHor().getIdHorario());
+
         return dto;
     }
 

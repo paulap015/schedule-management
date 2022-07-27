@@ -5,6 +5,7 @@ import co.unicauca.edu.schedule.domain.model.FranjaHoraria;
 import co.unicauca.edu.schedule.domain.model.PeriodoAcademicoAmbiente;
 import co.unicauca.edu.schedule.dto.FranjaDTO;
 import co.unicauca.edu.schedule.dto.FranjaResponseDTO;
+import co.unicauca.edu.schedule.service.IAmbienteService;
 import co.unicauca.edu.schedule.service.IFranjaHorariaService;
 import co.unicauca.edu.schedule.service.IPAAService;
 import co.unicauca.edu.schedule.utils.DTOtoClass;
@@ -26,6 +27,9 @@ public class FranjaHorariaController {
     @Autowired
     private IFranjaHorariaService franjaService;
 
+    @Lazy
+    @Autowired
+    private IAmbienteService ambienteService;
 
     @Lazy
     @Autowired
