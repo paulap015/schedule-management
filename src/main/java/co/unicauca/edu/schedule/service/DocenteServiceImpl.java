@@ -38,10 +38,14 @@ public class DocenteServiceImpl implements  IDocenteService{
             System.out.println("Programa no existe");
             return null;
         }
+        if(findById(doc.getId())==null){
+            doc.setHoras(0);
+            doc.setAvailable(true);
+        }
         doc.setAreaId(area);
         doc.setProgCodigo(programa);
-        doc.setHoras(0);
-        doc.setAvailable(true);
+
+
         return docenteRepository.save(doc);
     }
 

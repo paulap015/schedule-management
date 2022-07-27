@@ -90,6 +90,7 @@ public class DTOtoClass {
         dto.setDia(franja.getDia());
         dto.setNombreDocente(docenteService.findById(franja.getIdDocente().getId()).getNombre());
         dto.setAmbienteCod(paa.getAmbienteCod().getCodigo());
+        dto.setMessage("All ok");
         return dto;
     }
 
