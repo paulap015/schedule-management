@@ -94,31 +94,38 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
 
         FranjaHoraria fran = findById(franjaDTO.getIdHorario()).orElse(null);
         Docente doc = docenteService.findById(franjaDTO.getIdDocente());
+        Docente docActual=docenteService.findById(fran.getIdDocente().getId());
         Competencia comp = competenciaService.findById(franjaDTO.getCodigoCompetencia()).orElse(null);
-        boolean bandera = false;
+        PeriodoAcademicoAmbiente paaActual = paaService.findByHor(fran.getIdHorario());
+        Ambiente ambienteActual=paaActual.getAmbienteCod();
+
         if(comp==null || doc==null || fran ==null){
             return null;
         }
-        if(!validar.validarFranja(franjaDTO, doc)){
+        if(!validar.validarFranjaUpdate(franjaDTO, doc,fran,ambienteActual,paaActual)){
             return null;
         }
-        if(doc.getHoras()>0){
-            bandera=true;
-            doc.setHoras(doc.getHoras()-2);
-        }
+
         if(!docenteService.canSaveHours(franjaDTO, doc)){ // el docente puede acumular mas horas ?
             System.out.println("El docente ya cumplio con sus horas semanales o diarias ");
-            if(bandera)doc.setHoras(doc.getHoras()+2);
+
             return null;
         }
-        doc.setHoras(doc.getHoras()+2);
-        docenteService.save(doc);
+        if(validar.docenteEsDiferenteUpdate(doc,docActual)){
+            // son diferentes
+            System.out.println("entra a son difernetes");
+            docActual.setHoras(docActual.getHoras()-2);
+            doc.setHoras(doc.getHoras()+2);
+            docenteService.save(docActual);
+        }
+
+        //docenteService.save(doc);
         fran.setDia(franjaDTO.getDia());
         fran.setCodigoCompetencia(comp);
         fran.setHoraInicio(franjaDTO.getHoraInicio());
         fran.setHoraFin(franjaDTO.getHoraFin());
         fran.setIdHorario(franjaDTO.getIdHorario());
-
+        fran.setIdDocente(doc);
         FranjaHoraria newFran= franjaRepository.save(fran);
         paaService.update(franjaDTO,newFran); //creando nuevo periodo academico ambiente
         return newFran;

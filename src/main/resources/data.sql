@@ -28,6 +28,7 @@ INSERT INTO ambiente (amb_codigo, amb_nombre, amb_tipo_ambiente, amb_capacidad, 
 
 INSERT INTO usuario (us_id, us_tipo_id, us_nombre, us_apellido, us_rol,us_password,username) VALUES ('1000444666', 'CC', 'Fernanda Karin', 'Chavez Alegria', 'admin','123','admin');
 INSERT INTO usuario (us_id, us_tipo_id, us_nombre, us_apellido, us_rol,us_password,username) VALUES ('111555999', 'CC', 'Camilo Andres', 'Piedra Cañon', 'docente','123','camiloP');
+INSERT INTO usuario (us_id, us_tipo_id, us_nombre, us_apellido, us_rol,us_password,username) VALUES ('555000111', 'CC', 'Andrea', 'Ramirez', 'docente','123','andrea');
 
 INSERT INTO cordinador (us_id, cor_username,cor_fecha_inicio) VALUES ('1000444666', 'admin', '2021-11-01 11:30:21');
 

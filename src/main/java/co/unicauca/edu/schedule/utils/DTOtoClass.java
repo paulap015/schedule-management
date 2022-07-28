@@ -89,6 +89,7 @@ public class DTOtoClass {
         dto.setHoraFin(franja.getHoraFin());
         dto.setDia(franja.getDia());
         dto.setNombreDocente(docenteService.findById(franja.getIdDocente().getId()).getNombre());
+        System.out.println("valor docente "+docenteService.findById(franja.getIdDocente().getId()));
         dto.setAmbienteCod(paa.getAmbienteCod().getCodigo());
         dto.setMessage("All ok");
         return dto;
