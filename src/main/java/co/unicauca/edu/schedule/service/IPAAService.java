@@ -18,4 +18,5 @@ public interface IPAAService {
     public List<PeriodoAcademicoAmbiente> findAllByPa(Integer pa);
     public PeriodoAcademicoAmbiente update(FranjaDTO franjaDTO,FranjaHoraria fran);
     public PeriodoAcademicoAmbiente findByHor(@Param("id")Integer id);
+    public List<PeriodoAcademicoAmbiente> findByAmbiente(String amb);
 }

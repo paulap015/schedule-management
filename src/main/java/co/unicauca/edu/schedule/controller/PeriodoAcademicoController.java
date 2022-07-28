@@ -1,5 +1,6 @@
 package co.unicauca.edu.schedule.controller;
 
+import co.unicauca.edu.schedule.domain.model.Ambiente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,9 +72,14 @@ public class PeriodoAcademicoController {
     /*D*/
     @ResponseStatus(HttpStatus.ACCEPTED)
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<PeriodoAcademico> delete(@PathVariable("id") int id){
+    public ResponseEntity<?> delete(@PathVariable("id") int id){
+
+        if(periodoAcademicoService.periodoAcademicoTieneReferencias(id)){
+            return ResponseEntity.ok(PeriodoAcademico.builder().build()); // Tiene refernecia en paa
+        }
+        // se puede eliminar
         periodoAcademicoService.deleteById(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(PeriodoAcademico.builder().build());
+         return ResponseEntity.ok(id);
     }
 
     

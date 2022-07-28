@@ -17,4 +17,7 @@ public interface IPAARepository extends JpaRepository<PeriodoAcademicoAmbiente,I
 
     @Query(value="SELECT * FROM periodoacademicoambiente where pa_id= :idPa", nativeQuery = true)
     public List<PeriodoAcademicoAmbiente> findByPa(@Param("idPa") Integer idPa);
+
+    @Query(value="SELECT * FROM periodoacademicoambiente where amb_codigo= :amb", nativeQuery = true)
+    public List<PeriodoAcademicoAmbiente> findByAmbiente(@Param("amb") String amb);
 }

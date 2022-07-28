@@ -14,4 +14,6 @@ public interface IAmbienteService {
     public void deleteById(String id);
 
     public Ambiente update(Ambiente ambiente);
+
+    public boolean ambienteTieneReferencias(String ambiente);
 }
