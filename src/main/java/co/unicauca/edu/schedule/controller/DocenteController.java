@@ -20,7 +20,6 @@ public class DocenteController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @GetMapping("all")
     public ResponseEntity<?> getAll(){
-
         List<Docente> docentes = docenteService.findAllAvailable();//docenteService.findAll();
         return new ResponseEntity<>(docentes,HttpStatus.OK);
     }

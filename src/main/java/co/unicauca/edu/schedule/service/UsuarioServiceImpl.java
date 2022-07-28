@@ -52,8 +52,6 @@ public class UsuarioServiceImpl implements  IUsuarioService {
         Area area = areaService.findById(doc.getAreaId());
         Programa programa=programaService.findByCodigo(doc.getProgCodigo());
         if(doc.getRol().equalsIgnoreCase("docente")){
-
-
             docenteService.save(util.dtoDoc(doc,area,programa,usuario));
         }
 

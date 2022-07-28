@@ -32,4 +32,14 @@ public class UsuarioController {
         List<Usuario> usuarios = usuarioService.findAll();
         return new ResponseEntity<>(usuarios,HttpStatus.OK);
     }
+
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @GetMapping("{id}")
+    public ResponseEntity<Usuario> getUserById(@PathVariable("id") String id){
+        Usuario db = this.usuarioService.findById(id);
+        if(db == null){
+            return new ResponseEntity<Usuario>(Usuario.builder().build(),HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Usuario>(db,HttpStatus.NOT_FOUND);
+    }
 }
