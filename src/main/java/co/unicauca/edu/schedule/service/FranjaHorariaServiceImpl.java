@@ -31,6 +31,9 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
     private IAmbienteService ambienteService;
 
     @Autowired
+    private IPeriodoAcademicoService paService;
+
+    @Autowired
     private DTOtoClass util;
 
     @Autowired
@@ -95,11 +98,13 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
         FranjaHoraria fran = findById(franjaDTO.getIdHorario()).orElse(null);
         Docente doc = docenteService.findById(franjaDTO.getIdDocente());
         Docente docActual=docenteService.findById(fran.getIdDocente().getId());
+
         Competencia comp = competenciaService.findById(franjaDTO.getCodigoCompetencia()).orElse(null);
         PeriodoAcademicoAmbiente paaActual = paaService.findByHor(fran.getIdHorario());
         Ambiente ambienteActual=paaActual.getAmbienteCod();
 
-        if(comp==null || doc==null || fran ==null){
+
+        if(comp==null || doc==null || fran ==null ){
             return null;
         }
         if(!validar.validarFranjaUpdate(franjaDTO, doc,fran,ambienteActual,paaActual)){
@@ -127,7 +132,7 @@ public class FranjaHorariaServiceImpl implements IFranjaHorariaService{
         fran.setIdHorario(franjaDTO.getIdHorario());
         fran.setIdDocente(doc);
         FranjaHoraria newFran= franjaRepository.save(fran);
-        paaService.update(franjaDTO,newFran); //creando nuevo periodo academico ambiente
+        paaService.update(franjaDTO,newFran); //actualizando periodo academico ambiente
         return newFran;
     }
 

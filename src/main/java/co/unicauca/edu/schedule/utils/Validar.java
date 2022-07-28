@@ -1,10 +1,7 @@
 package co.unicauca.edu.schedule.utils;
 
 import co.unicauca.edu.schedule.dao.IPAARepository;
-import co.unicauca.edu.schedule.domain.model.Ambiente;
-import co.unicauca.edu.schedule.domain.model.Docente;
-import co.unicauca.edu.schedule.domain.model.FranjaHoraria;
-import co.unicauca.edu.schedule.domain.model.PeriodoAcademicoAmbiente;
+import co.unicauca.edu.schedule.domain.model.*;
 import co.unicauca.edu.schedule.dto.FranjaDTO;
 import co.unicauca.edu.schedule.service.IDocenteService;
 import co.unicauca.edu.schedule.service.IFranjaHorariaService;
@@ -17,7 +14,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 @Component
-public class Validar {
+public class  Validar {
 
     @Autowired
     private ConvertHour convertidor;
@@ -91,6 +88,8 @@ public class Validar {
 
         }
 
+
+
         if(!franjaUpdate.getAmbienteCod().equalsIgnoreCase(ambienteActual.getCodigo())){ // son ambientes diferentes
             //System.out.println("SON AMBIENTES DIFERENTES ");
             if(ambienteOcupadoFranja(franjaUpdate.getDia(),franjaUpdate.getHoraInicio(),franjaUpdate.getAmbienteCod(),true,null)){
@@ -112,7 +111,7 @@ public class Validar {
     private boolean validarFecha(Date inicial, Date fin){
 
         //System.out.println("apunto de ver vlaidaciones "+inicial.before(fin) +" and "+(Double.valueOf(fin.getHours())-Double.valueOf(inicial.getHours())));
-        if(inicial.before(fin) && (fin.getHours()-inicial.getHours()==2)){
+        if(inicial.before(fin) && (fin.getHours()-inicial.getHours()==2) &&(fin.getMinutes()- inicial.getMinutes()==0) &&(inicial.getMinutes()==00) ){
             //System.out.println("Las validaciones de fecha es correcto ");
             return true;
         }
@@ -134,6 +133,12 @@ public class Validar {
             }
         }
         return false; //no esta ocupado a esa hora
+    }
+    public boolean periodoAcademicoEsDiferente(PeriodoAcademico paDTO,PeriodoAcademico paActual){
+        if(paDTO.getId()== paActual.getId()){
+            return false; // son iguales
+        }
+        return true; // son diferentes
     }
     public boolean docenteEsDiferenteUpdate(Docente dto, Docente  actual){
 
