@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import co.unicauca.edu.schedule.domain.model.PeriodoAcademicoAmbiente;
 import co.unicauca.edu.schedule.utils.ConvertHour;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class PeriodoAcademicoServiceImpl implements IPeriodoAcademicoService {
 
     @Autowired
     private IPeriodoAcademicoRepository periodoAcademicoRepository;
+
+    @Autowired
+    private IPAAService paaService;
 
     @Override
     public List<PeriodoAcademico> findAll() {
@@ -61,6 +65,7 @@ public class PeriodoAcademicoServiceImpl implements IPeriodoAcademicoService {
     }
     @Override
     public void deleteById(int id) {
+
         this.periodoAcademicoRepository.deleteById(id);
     }
 
@@ -74,6 +79,16 @@ public class PeriodoAcademicoServiceImpl implements IPeriodoAcademicoService {
             return this.periodoAcademicoRepository.save(db);
         }
         return null;
+    }
+
+    @Override
+    public boolean periodoAcademicoTieneReferencias(Integer pa) {
+
+        List<PeriodoAcademicoAmbiente> paaAll = paaService.findAllByPa(pa);
+        if(paaAll.size() == 0){
+            return true;
+        }
+        return false;
     }
 
 }

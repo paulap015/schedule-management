@@ -2,9 +2,12 @@ package co.unicauca.edu.schedule.service;
 
 import co.unicauca.edu.schedule.dao.IAmbienteRepository;
 import co.unicauca.edu.schedule.domain.model.Ambiente;
+import co.unicauca.edu.schedule.domain.model.FranjaHoraria;
+import co.unicauca.edu.schedule.domain.model.PeriodoAcademicoAmbiente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +15,9 @@ import java.util.Optional;
 public class AmbienteServiceImpl implements IAmbienteService{
     @Autowired
     private IAmbienteRepository ambienteRepository;
+
+    @Autowired
+    private IPAAService paaService;
 
     @Override
     public List<Ambiente> findAll() {
@@ -31,7 +37,8 @@ public class AmbienteServiceImpl implements IAmbienteService{
     @Override
     public void deleteById(String id) {
 
-        ambienteRepository.deleteById(id);
+
+        //ambienteRepository.deleteById(id);
     }
 
     @Override
@@ -50,5 +57,14 @@ public class AmbienteServiceImpl implements IAmbienteService{
         return ambienteRepository.save(amb.get());
     }
 
+    @Override
+    public boolean ambienteTieneReferencias(String ambiente) {
+
+        List<PeriodoAcademicoAmbiente> paaAll = paaService.findByAmbiente(ambiente);
+        if(paaAll.size() == 0){
+            return true;
+        }
+        return false;
+    }
 
 }

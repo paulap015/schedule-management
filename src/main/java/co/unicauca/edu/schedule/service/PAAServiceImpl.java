@@ -94,5 +94,10 @@ public class PAAServiceImpl implements  IPAAService{
         return paaRepository.findByHor(id);
     }
 
+    @Override
+    public List<PeriodoAcademicoAmbiente> findByAmbiente(String amb) {
+        return paaRepository.findByAmbiente(amb);
+    }
+
 
 }

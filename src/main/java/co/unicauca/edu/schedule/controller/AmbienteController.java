@@ -65,8 +65,11 @@ public class AmbienteController {
         if(ambienteService.findById(id).isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Ambiente.builder().build());
         }
+        if(ambienteService.ambienteTieneReferencias(id)){
+            return ResponseEntity.ok(Ambiente.builder().build()); // Tiene refernecia en paa
+        }
         ambienteService.deleteById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(id);
     }
 
 }

@@ -9,4 +9,6 @@ public interface IPeriodoAcademicoService {
     public PeriodoAcademico save(PeriodoAcademico periodo);
     public void deleteById(int id);
     public PeriodoAcademico update(PeriodoAcademico save);
+
+    public boolean periodoAcademicoTieneReferencias(Integer  pa);
 }
