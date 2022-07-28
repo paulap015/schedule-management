@@ -7,6 +7,7 @@ import co.unicauca.edu.schedule.domain.model.PeriodoAcademico;
 import co.unicauca.edu.schedule.domain.model.PeriodoAcademicoAmbiente;
 import co.unicauca.edu.schedule.dto.FranjaDTO;
 import co.unicauca.edu.schedule.utils.DTOtoClass;
+import co.unicauca.edu.schedule.utils.Validar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,10 @@ public class PAAServiceImpl implements  IPAAService{
 
     @Autowired
     private DTOtoClass util;
+    @Lazy
+    @Autowired
+    private Validar validar;
+
     @Override
     public PeriodoAcademicoAmbiente save(FranjaDTO franjaDTO,FranjaHoraria fran) {
         //util.dtoPAA(franjaDTO,newFran);
@@ -69,9 +74,14 @@ public class PAAServiceImpl implements  IPAAService{
     public PeriodoAcademicoAmbiente update(FranjaDTO franjaDTO,FranjaHoraria fran) {
         PeriodoAcademicoAmbiente paa = paaRepository.findByHor(franjaDTO.getIdHorario());
         Ambiente ambiente = ambienteService.findById(franjaDTO.getAmbienteCod()).orElse(null);
+        PeriodoAcademico paActual = paa.getPaId();
+        PeriodoAcademico paDTO = paService.findById(franjaDTO.getPaId()).orElse(null);
 
-        if(ambiente == null ){
+        if(ambiente == null || paDTO==null){
             return null;
+        }
+        if (validar.periodoAcademicoEsDiferente(paDTO,paActual)){
+            paa.setPaId(paDTO);
         }
         paa.setHor(fran);
         paa.setAmbienteCod(ambiente);
@@ -83,4 +93,6 @@ public class PAAServiceImpl implements  IPAAService{
     public PeriodoAcademicoAmbiente findByHor(Integer id) {
         return paaRepository.findByHor(id);
     }
+
+
 }

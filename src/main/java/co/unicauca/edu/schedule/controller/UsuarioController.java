@@ -40,6 +40,6 @@ public class UsuarioController {
         if(db == null){
             return new ResponseEntity<Usuario>(Usuario.builder().build(),HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Usuario>(db,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<Usuario>(db,HttpStatus.OK);
     }
 }
